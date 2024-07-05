@@ -1,0 +1,11 @@
+{
+  "Group": "Widgets",
+  "FriendlyName": "Test Plugin",
+  "SystemName": "Widgets.Test",
+  "Version": "1.0.1",
+  "SupportedVersions": [ "4.70" ],
+  "Author": "rajin",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.Test.dll",
+  "Description": "This is a sample plugin"
+}

@@ -65,7 +65,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Misc.NopMobileAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Misc.Omnisend", "Plugins\Nop.Plugin.Misc.Omnisend\Nop.Plugin.Misc.Omnisend.csproj", "{48003279-FC5E-43F4-B683-E28B34BAECEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nop.Plugin.Widgets.HelloWorld", "Plugins\Nop.Plugin.Widgets.HelloWorld\Nop.Plugin.Widgets.HelloWorld.csproj", "{0035A8B7-1D7A-41E3-85BF-AC08DF29A887}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Widgets.HelloWorld", "Plugins\Nop.Plugin.Widgets.HelloWorld\Nop.Plugin.Widgets.HelloWorld.csproj", "{0035A8B7-1D7A-41E3-85BF-AC08DF29A887}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nop.Plugin.Widgets.Test", "Plugins\Nop.Plugin.Widgets.Test\Nop.Plugin.Widgets.Test.csproj", "{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -391,6 +393,18 @@ Global
 		{0035A8B7-1D7A-41E3-85BF-AC08DF29A887}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0035A8B7-1D7A-41E3-85BF-AC08DF29A887}.Release|x86.ActiveCfg = Release|Any CPU
 		{0035A8B7-1D7A-41E3-85BF-AC08DF29A887}.Release|x86.Build.0 = Release|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Debug|x86.Build.0 = Debug|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Release|x86.ActiveCfg = Release|Any CPU
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -424,6 +438,7 @@ Global
 		{B3DBB095-6CF0-4A6D-AD40-CFCD8D17AF1D} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 		{48003279-FC5E-43F4-B683-E28B34BAECEB} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 		{0035A8B7-1D7A-41E3-85BF-AC08DF29A887} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
+		{CC4457E7-10BD-4EA8-AE53-72ADFFC60C34} = {7881B112-7843-4542-B1F7-F99553FB9BB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE72A8B2-332A-4175-9319-6726D36E9D25}
