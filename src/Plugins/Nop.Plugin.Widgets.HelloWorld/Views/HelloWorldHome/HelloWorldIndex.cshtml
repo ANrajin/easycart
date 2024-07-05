@@ -1,0 +1,71 @@
+@inherits Nop.Web.Framework.Mvc.Razor.NopRazorPage<TModel>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Nop.Web.Framework
+
+@inject INopHtmlHelper NopHtml
+
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using Microsoft.AspNetCore.Routing
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Plugin.Misc.Omnisend
+@using Nop.Plugin.Misc.Omnisend.Models
+@using Nop.Services.Events
+@using Nop.Web.Framework
+@using Nop.Web.Framework.Models
+@using Nop.Web.Framework.Events
+@using Nop.Web.Framework.Extensions
+@using Nop.Web.Framework.Infrastructure
+@using Nop.Web.Framework.Models.DataTables
+@using Nop.Web.Framework.Security.Captcha
+@using Nop.Web.Framework.Security.Honeypot
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+
+@{
+    Layout = "_AdminLayout";
+    NopHtml.SetActiveMenuItemSystemName("HelloWorldPlugin");
+}
+
+<form method="post">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            Banner Image Setting
+        </h1>
+        <div class="float-right">
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    Upload Banner Image
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="alt-text" class="form-label">Alt Text</label>
+                        <input type="text" class="form-control" name="alt-text" id="alt-text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="link" class="form-label">Link</label>
+                        <input type="text" class="form-control" name="link" id="link" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="picture" class="form-label">Select Picture</label>
+                        <input type="file" class="form-control" id="picture" name="picture" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-primary">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
