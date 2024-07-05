@@ -8,9 +8,9 @@
     @if (Model.ShowSearchBox)
     {
         <div class="d-flex">
-            <input type="text" class="search-box-text form-control me-1" id="small-searchterms" autocomplete="off" name="q" placeholder="@T("Search.SearchBox.Tooltip")" aria-label="@T("Search.SearchBox.Text.Label")" />
+            <input type="text" class="form-control me-1" id="small-searchterms" autocomplete="off" name="q" placeholder="@T("Search.SearchBox.Tooltip")" aria-label="@T("Search.SearchBox.Text.Label")" />
             @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.SearchBoxBeforeSearchButton, additionalData = Model })
-            <button type="submit" class="button-1 search-box-button btn btn-outline-primary">@T("Search.Button")</button>
+            <button type="submit" class="btn btn-outline-primary">@T("Search.Button")</button>
         </div>
         @if (Model.SearchTermMinimumLength > 0)
         {
