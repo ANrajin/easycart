@@ -5,4 +5,5 @@ public interface IBannerService
 {
     Task<Banner> GetBannerAsync();
     Task InsertBannerAsync(Banner banner);
+    Task UpdateBannerAsync(Banner banner);
 }

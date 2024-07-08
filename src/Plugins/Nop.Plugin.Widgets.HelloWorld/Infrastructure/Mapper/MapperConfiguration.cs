@@ -8,7 +8,8 @@ public class MapperConfiguration : Profile, IOrderedMapperProfile
 {
     public MapperConfiguration()
     {
-        CreateMap<BannerModel, Banner>();
+        CreateMap<BannerModel, Banner>()
+            .ReverseMap();
     }
 
     public int Order => 1;

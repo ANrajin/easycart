@@ -17,4 +17,11 @@ public class BannerService(IRepository<Banner> bannerRepository) : IBannerServic
 
         await _bannerRepository.InsertAsync(banner, false);
     }
+
+    public async Task UpdateBannerAsync(Banner banner)
+    {
+        ArgumentNullException.ThrowIfNull(banner, nameof(banner));
+
+        await _bannerRepository.UpdateAsync(banner, false);
+    }
 }

@@ -4,7 +4,7 @@ using Nop.Web.Framework.Models;
 namespace Nop.Plugin.Widgets.HelloWorld.Models;
 public record BannerModel : BaseNopEntityModel
 {
-    #region Properties    
+    #region Properties 
     public string AltText { get; set; }
     
     public string LinkText { get; set; }
