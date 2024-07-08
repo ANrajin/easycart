@@ -21,9 +21,15 @@ public class HelloWorldHomeController(IBannerService bannerService,
     private readonly INotificationService _notificationService = notificationService;
     private readonly ILocalizationService _localizationService = localizationService;
 
-    public IActionResult HelloWorldIndex()
+    public async Task<IActionResult> HelloWorldIndex()
     {
-        var model = new BannerModel();
+        var banner = await _bannerService.GetBannerAsync();
+        var model = new BannerModel()
+        {
+            AltText = banner.AltText,
+            LinkText = banner.LinkText,
+            ImageUrl = Convert.ToInt32(banner.ImageUrl),
+        };
         return View(model);
     }
 
@@ -34,7 +40,7 @@ public class HelloWorldHomeController(IBannerService bannerService,
         {
             AltText = model.AltText,
             LinkText = model.LinkText,
-            ImageUrl = model.ImageUrl,
+            ImageUrl = model.ImageUrl.ToString(),
         };
         await _bannerService.InsertBannerAsync(banner);
         _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Plugins.Saved"));

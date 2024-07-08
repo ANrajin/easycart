@@ -7,8 +7,7 @@ public class BannerBuilder : NopEntityBuilder<Banner>
 {
     public override void MapEntity(CreateTableExpressionBuilder table)
     {
-        table.WithColumn(nameof(Banner.Id)).AsInt32().PrimaryKey()
-            .WithColumn(nameof(Banner.AltText)).AsString(255).Nullable()
+        table.WithColumn(nameof(Banner.AltText)).AsString(255).Nullable()
             .WithColumn(nameof(Banner.LinkText)).AsString(255).Nullable()
             .WithColumn(nameof(Banner.ImageUrl)).AsString(255).NotNullable();
     }

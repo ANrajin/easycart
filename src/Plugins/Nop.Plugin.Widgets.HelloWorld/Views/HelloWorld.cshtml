@@ -1,3 +1,14 @@
+@model Nop.Plugin.Widgets.HelloWorld.Models.PublicBannerModel
+
 <div style="margin: 1.5rem auto;">
-    <img src="~/images/sample-banner.jpg" style="width: 100%;"/>
+    @if (string.IsNullOrEmpty(Model.LinkText))
+    {
+        <img src="@Model.ImageUrl" alt="@Model.AltText" style="width: 100%;" />
+    }
+    else
+    {
+        <a href="@Model.LinkText">
+            <img src="@Model.ImageUrl" alt="@Model.AltText" style="width: 100%;" />
+        </a>
+    }
 </div>

@@ -10,6 +10,6 @@ public record BannerModel : BaseNopEntityModel
     public string LinkText { get; set; }
 
     [UIHint("Picture")]
-    public string ImageUrl { get; set; }
+    public int ImageUrl { get; set; }
     #endregion
 }
