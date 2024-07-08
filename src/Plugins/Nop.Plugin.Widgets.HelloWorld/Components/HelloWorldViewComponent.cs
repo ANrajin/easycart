@@ -30,6 +30,6 @@ public class HelloWorldViewComponent(
             };
         }
 
-        return View("~/Plugins/Widgets.HelloWorld/Views/HelloWorld.cshtml", model);
+        return View(model);
     }
 }
