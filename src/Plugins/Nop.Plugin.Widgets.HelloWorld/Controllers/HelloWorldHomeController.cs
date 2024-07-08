@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nop.Plugin.Widgets.HelloWorld.Domain;
+using Nop.Plugin.Widgets.HelloWorld.Factories;
 using Nop.Plugin.Widgets.HelloWorld.Models;
 using Nop.Plugin.Widgets.HelloWorld.Services;
 using Nop.Services.Localization;
@@ -15,35 +16,51 @@ namespace Nop.Plugin.Widgets.HelloWorld.Controllers;
 [AutoValidateAntiforgeryToken]
 public class HelloWorldHomeController(IBannerService bannerService,
     INotificationService notificationService,
-    ILocalizationService localizationService):BasePluginController
+    ILocalizationService localizationService,
+    IBannerModelFactory bannerModelFactory):BasePluginController
 {
     private readonly IBannerService _bannerService = bannerService;
     private readonly INotificationService _notificationService = notificationService;
     private readonly ILocalizationService _localizationService = localizationService;
+    private readonly IBannerModelFactory _bannerModelFactory = bannerModelFactory;
 
     public async Task<IActionResult> HelloWorldIndex()
     {
+        BannerModel model = new();
+
         var banner = await _bannerService.GetBannerAsync();
-        var model = new BannerModel()
+
+        if(banner is not null)
         {
-            AltText = banner.AltText,
-            LinkText = banner.LinkText,
-            ImageUrl = Convert.ToInt32(banner.ImageUrl),
-        };
+            model = await _bannerModelFactory.PrepareBannerModelAsync(null, banner);
+        }
+
         return View(model);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateOrUpdateAsync(BannerModel model)
     {
-        var banner = new Banner()
+        if(ModelState.IsValid)
         {
-            AltText = model.AltText,
-            LinkText = model.LinkText,
-            ImageUrl = model.ImageUrl.ToString(),
-        };
-        await _bannerService.InsertBannerAsync(banner);
-        _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Plugins.Saved"));
-        return RedirectToAction("HelloWorldIndex", "HelloWorldHome");
+            var banner = new Banner()
+            {
+                AltText = model.AltText,
+                LinkText = model.LinkText,
+                ImageUrl = model.ImageUrl,
+            };
+
+            await _bannerService.InsertBannerAsync(banner);
+
+            _notificationService.SuccessNotification(
+                await _localizationService.GetResourceAsync("Admin.Plugins.Saved"));
+
+
+            return RedirectToAction("HelloWorldIndex", "HelloWorldHome");
+        }
+
+        model = await _bannerModelFactory.PrepareBannerModelAsync(model, null);
+
+        return View("HelloWorldIndex", model);
     }
 }

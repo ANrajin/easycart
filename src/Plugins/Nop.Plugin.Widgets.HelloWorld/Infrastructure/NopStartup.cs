@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
+using Nop.Plugin.Widgets.HelloWorld.Factories;
 using Nop.Plugin.Widgets.HelloWorld.Services;
 
 namespace Nop.Plugin.Widgets.HelloWorld.Infrastructure;
@@ -21,6 +22,7 @@ public class NopStartup : INopStartup
             options.ViewLocationExpanders.Add(new ViewLocationExpander());
         });
 
+        services.AddScoped<IBannerModelFactory, BannerModelFactory>();
         services.AddScoped<IBannerService, BannerService>();
     }
 }

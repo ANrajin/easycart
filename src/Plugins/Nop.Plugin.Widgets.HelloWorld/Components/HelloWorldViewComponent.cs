@@ -14,15 +14,21 @@ public class HelloWorldViewComponent(
 
     public async Task<IViewComponentResult> InvokeAsync(string widgetZone, object additionalData)
     {
+        PublicBannerModel model = new();
+
         var banner = await _bannerService.GetBannerAsync();
-        var model = new PublicBannerModel
+
+        if(banner is not null)
         {
-            AltText = banner.AltText,
-            LinkText = banner.LinkText,
-            ImageUrl = await _pictureService.GetPictureUrlAsync(
-                Convert.ToInt32(banner.ImageUrl), 
-                showDefaultPicture: false) ?? ""
-        };
+            model = new PublicBannerModel
+            {
+                AltText = banner.AltText,
+                LinkText = banner.LinkText,
+                ImageUrl = await _pictureService.GetPictureUrlAsync(
+                    banner.ImageUrl,
+                    showDefaultPicture: false) ?? ""
+            };
+        }
 
         return View("~/Plugins/Widgets.HelloWorld/Views/HelloWorld.cshtml", model);
     }

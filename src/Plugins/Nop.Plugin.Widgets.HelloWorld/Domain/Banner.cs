@@ -5,5 +5,5 @@ public class Banner:BaseEntity
 {
     public string AltText { get; set; }
     public string LinkText { get; set; }
-    public string ImageUrl { get; set; }
+    public int ImageUrl { get; set; }
 }

@@ -9,6 +9,6 @@ public class BannerBuilder : NopEntityBuilder<Banner>
     {
         table.WithColumn(nameof(Banner.AltText)).AsString(255).Nullable()
             .WithColumn(nameof(Banner.LinkText)).AsString(255).Nullable()
-            .WithColumn(nameof(Banner.ImageUrl)).AsString(255).NotNullable();
+            .WithColumn(nameof(Banner.ImageUrl)).AsInt32().NotNullable();
     }
 }
