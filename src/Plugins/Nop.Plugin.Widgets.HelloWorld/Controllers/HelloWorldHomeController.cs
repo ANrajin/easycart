@@ -59,4 +59,12 @@ public class HelloWorldHomeController(IBannerService bannerService,
 
         return View("HelloWorldIndex", model);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> ListAsync()
+    {
+        var model = await _bannerModelFactory.PrepareBannerListModelAsync();
+
+        return Json(model);
+    }
 }

@@ -85,3 +85,33 @@
         </div>
     </section>
 </form>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                Banner Image List
+            </div>
+            <div class="card-body">
+                @await Html.PartialAsync("Table", new DataTablesModel{
+                   Name = "images-grid",
+                   UrlRead = new DataUrl("List", "HelloWorldHome", null),
+                   SearchButtonId = "search-images",
+                   Length = 10,
+                   LengthMenu = "10, 20, 50, 100",
+                   Filters = new List<FilterParameter>(),
+                   ColumnCollection = new List<ColumnProperty>
+                   {
+                        new ColumnProperty(Model.Id.ToString())
+                        {
+                            IsMasterCheckBox = true,
+                            Render = new RenderCheckBox("checkbox_banners"),
+                            ClassName =  NopColumnClassDefaults.CenterAll,
+                            Width = "50"
+                        },
+                   }
+                })
+            </div>
+        </div>
+    </div>
+</div>
