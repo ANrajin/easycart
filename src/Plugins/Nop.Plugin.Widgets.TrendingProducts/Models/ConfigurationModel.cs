@@ -6,8 +6,12 @@ public record ConfigurationModel : BaseNopModel
 {
     [UIHint("DateTime")]
     public DateTime FromDate { get; set; }
+
     [UIHint("DateTime")]
     public DateTime ToDate { get; set; }
-    [UIHint("Number")]
+
+    [UIHint("Number"), MinLength(1), MaxLength(20)]
     public int Count { get; set; }
+
+    public int ActiveStoreScopeConfiguration { get; set; }
 }

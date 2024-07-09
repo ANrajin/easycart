@@ -13,7 +13,7 @@ namespace Nop.Plugin.Widgets.TrendingProducts
         ) : BasePlugin, IAdminMenuPlugin
     {
         protected readonly ISettingService _settingService = settingService;
-        private readonly IWebHelper _webHelper = webHelper;
+        protected readonly IWebHelper _webHelper = webHelper;
 
         public override string GetConfigurationPageUrl()
         {
