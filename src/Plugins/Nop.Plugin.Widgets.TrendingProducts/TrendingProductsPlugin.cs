@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using Nop.Core;
+using Nop.Plugin.Widgets.HelloWorld.Components;
+using Nop.Services.Cms;
 using Nop.Services.Configuration;
 using Nop.Services.Plugins;
 using Nop.Web.Framework;
+using Nop.Web.Framework.Infrastructure;
 using Nop.Web.Framework.Menu;
 
 namespace Nop.Plugin.Widgets.TrendingProducts
@@ -10,10 +13,22 @@ namespace Nop.Plugin.Widgets.TrendingProducts
     public class TrendingProductsPlugin(
         ISettingService settingService,
         IWebHelper webHelper
-        ) : BasePlugin, IAdminMenuPlugin
+        ) : BasePlugin, IAdminMenuPlugin, IWidgetPlugin
     {
         protected readonly ISettingService _settingService = settingService;
         protected readonly IWebHelper _webHelper = webHelper;
+
+        public bool HideInWidgetList => false;
+
+        public Task<IList<string>> GetWidgetZonesAsync()
+        {
+            return Task.FromResult<IList<string>>(new List<string> { PublicWidgetZones.HomepageBeforeNews });
+        }
+
+        public Type GetWidgetViewComponent(string widgetZone)
+        {
+            return typeof(TrendingProductsViewComponent);
+        }
 
         public override string GetConfigurationPageUrl()
         {
