@@ -10,7 +10,7 @@ public record ConfigurationModel : BaseNopModel
     [UIHint("DateTime")]
     public DateTime ToDate { get; set; }
 
-    [UIHint("Number"), MinLength(1), MaxLength(20)]
+    [UIHint("Number")]
     public int Count { get; set; }
 
     public int ActiveStoreScopeConfiguration { get; set; }

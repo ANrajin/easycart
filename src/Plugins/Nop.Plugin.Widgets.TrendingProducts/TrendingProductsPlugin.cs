@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using Nop.Core;
-using Nop.Plugin.Widgets.HelloWorld.Components;
+using Nop.Plugin.Widgets.TrendingProducts.Components;
 using Nop.Services.Cms;
 using Nop.Services.Configuration;
 using Nop.Services.Plugins;
@@ -12,11 +12,13 @@ namespace Nop.Plugin.Widgets.TrendingProducts
 {
     public class TrendingProductsPlugin(
         ISettingService settingService,
+        IStoreContext storeContext,
         IWebHelper webHelper
         ) : BasePlugin, IAdminMenuPlugin, IWidgetPlugin
     {
-        protected readonly ISettingService _settingService = settingService;
-        protected readonly IWebHelper _webHelper = webHelper;
+        private readonly ISettingService _settingService = settingService;
+        private readonly IStoreContext _storeContext = storeContext;
+        private readonly IWebHelper _webHelper = webHelper;
 
         public bool HideInWidgetList => false;
 
@@ -37,7 +39,8 @@ namespace Nop.Plugin.Widgets.TrendingProducts
 
         public override async Task InstallAsync()
         {
-            await _settingService.SaveSettingAsync(new TrendingProductsSetting());
+            var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
+            await _settingService.SaveSettingAsync(new TrendingProductsSetting(), storeScope);
             await base.InstallAsync();
         }
 
