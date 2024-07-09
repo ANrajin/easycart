@@ -1,0 +1,11 @@
+{
+  "Group": "Widgets",
+  "FriendlyName": "Trending Products Plugin",
+  "SystemName": "Widgets.TrendingProducts",
+  "Version": "1.0.1",
+  "SupportedVersions": [ "4.70" ],
+  "Author": "rajin",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.TrendingProducts.dll",
+  "Description": "This plugin will display top selling products into public area."
+}
