@@ -20,6 +20,7 @@
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="Views\Configure.cshtml" />
+    <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,11 +33,14 @@
     <Content Include="Views\Configure.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\_ViewImports.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Nop.Services\Nop.Services.csproj" />
-    <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj" />
   </ItemGroup>
 
   <!-- This target execute after "Build" target -->

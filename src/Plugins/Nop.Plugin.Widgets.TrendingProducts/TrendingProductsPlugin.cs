@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Routing;
+using Nop.Core;
 using Nop.Services.Configuration;
 using Nop.Services.Plugins;
 using Nop.Web.Framework;
@@ -6,9 +7,18 @@ using Nop.Web.Framework.Menu;
 
 namespace Nop.Plugin.Widgets.TrendingProducts
 {
-    public class TrendingProductsPlugin(ISettingService settingService) : BasePlugin, IAdminMenuPlugin
+    public class TrendingProductsPlugin(
+        ISettingService settingService,
+        IWebHelper webHelper
+        ) : BasePlugin, IAdminMenuPlugin
     {
         protected readonly ISettingService _settingService = settingService;
+        private readonly IWebHelper _webHelper = webHelper;
+
+        public override string GetConfigurationPageUrl()
+        {
+            return $"{_webHelper.GetStoreLocation()}Admin/TrendingProducts/Configure";
+        }
 
         public override async Task InstallAsync()
         {
