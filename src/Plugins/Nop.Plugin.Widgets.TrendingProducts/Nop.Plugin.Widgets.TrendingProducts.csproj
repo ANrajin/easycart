@@ -18,6 +18,20 @@
 
   <ItemGroup>
     <None Remove="Contents\css\configure.css" />
+    <None Remove="Contents\slick\ajax-loader.gif" />
+    <None Remove="Contents\slick\config.rb" />
+    <None Remove="Contents\slick\fonts\slick.eot" />
+    <None Remove="Contents\slick\fonts\slick.svg" />
+    <None Remove="Contents\slick\fonts\slick.ttf" />
+    <None Remove="Contents\slick\fonts\slick.woff" />
+    <None Remove="Contents\slick\slick-theme.css" />
+    <None Remove="Contents\slick\slick-theme.less" />
+    <None Remove="Contents\slick\slick-theme.scss" />
+    <None Remove="Contents\slick\slick.css" />
+    <None Remove="Contents\slick\slick.js" />
+    <None Remove="Contents\slick\slick.less" />
+    <None Remove="Contents\slick\slick.min.js" />
+    <None Remove="Contents\slick\slick.scss" />
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="Views\Configure.cshtml" />
@@ -27,6 +41,48 @@
 
   <ItemGroup>
     <Content Include="Contents\css\configure.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\ajax-loader.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\config.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\fonts\slick.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\fonts\slick.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\fonts\slick.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\fonts\slick.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Contents\slick\slick-theme.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Contents\slick\slick-theme.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\slick-theme.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\slick.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\slick.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\slick.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\slick.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\slick\slick.scss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="logo.png">
