@@ -1,3 +1,7 @@
+@using Nop.Web.Models.Catalog
+
+@model IList<ProductOverviewModel>
+
 @{
     Layout = "";
 }
@@ -11,22 +15,20 @@
     <div class="title">
         <strong>Trending Products</strong>
     </div>
-    <div class="item-grid">
-        <div class="your-class">
-            <div><h3>1</h3></div>
-            <div><h3>2</h3></div>
-            <div><h3>3</h3></div>
-            <div><h3>4</h3></div>
-            <div><h3>5</h3></div>
-            <div><h3>6</h3></div>
-        </div>
+    <div class="item-grid trending-products">
+        @foreach (var item in Model)
+        {
+            <div class="item-box">
+                @await Html.PartialAsync("_ProductBox", item)
+            </div>
+        }
     </div>
 </div>
 
 <script asp-location="Footer">
     $(window).on('load', function () {
-        $('.your-class').slick({
-            slidesToShow: 3,
+        $('.trending-products').slick({
+            slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 2000,

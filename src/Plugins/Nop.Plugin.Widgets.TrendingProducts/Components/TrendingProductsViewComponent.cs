@@ -1,13 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nop.Plugin.Widgets.TrendingProducts.Factories;
+using Nop.Plugin.Widgets.TrendingProducts.Services;
+using Nop.Services.Configuration;
 using Nop.Web.Framework.Components;
-using Nop.Web.Framework.UI;
 
 namespace Nop.Plugin.Widgets.TrendingProducts.Components;
-public class TrendingProductsViewComponent : NopViewComponent
+public class TrendingProductsViewComponent(
+    ITrendingProductFactory trendingProductFactory,
+    ITrendingProductService trendingProductService,
+    ISettingService settingService) : NopViewComponent
 {
+    private readonly ITrendingProductFactory _trendingProductFactory = trendingProductFactory;
+    private readonly ITrendingProductService _trendingProductService = trendingProductService;
+    private readonly ISettingService _settingService = settingService;
 
     public async Task<IViewComponentResult> InvokeAsync(string widgetZone, object additionalData)
     {
-        return View();
+        var setting = await _settingService.LoadSettingAsync<TrendingProductsSetting>();
+
+        var products = await _trendingProductService.GetTrendingProducts(setting, 1);
+
+        var model = await _trendingProductFactory.PrepareProductOverviewModelAsync(products);
+
+        return View(model);
     }
 }
