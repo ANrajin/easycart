@@ -25,16 +25,20 @@ public partial class TrendingProductService(
                         ProductId = product.Id, 
                         ProductName = product.Name, 
                         ShortDesc = product.ShortDescription,
-                        ProductSku = product.Sku
+                        ProductSku = product.Sku,
+                        ProductPrice = product.Price,
+                        ProductOldPrice = product.OldPrice,
                     }
-                    by new { product.Id, product.Name, product.ShortDescription, product.Sku } into productGroup
+                    by new { product.Id, product.Name, product.ShortDescription, product.Sku, product.Price, product.OldPrice } into productGroup
                     orderby productGroup.Count() descending
                     select new Product
                     {
                         Id = productGroup.Key.Id,
                         Name = productGroup.Key.Name,
                         ShortDescription = productGroup.Key.ShortDescription,
-                        Sku = productGroup.Key.Sku
+                        Sku = productGroup.Key.Sku,
+                        Price = productGroup.Key.Price,
+                        OldPrice = productGroup.Key.OldPrice,
                     }).Take(setting.Count).ToListAsync();
     }
 }

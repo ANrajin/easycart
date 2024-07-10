@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Contents\css\configure.css" />
+    <None Remove="Contents\css\styles.css" />
     <None Remove="Contents\slick\ajax-loader.gif" />
     <None Remove="Contents\slick\config.rb" />
     <None Remove="Contents\slick\fonts\slick.eot" />
@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Contents\css\configure.css">
+    <Content Include="Contents\css\styles.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Contents\slick\ajax-loader.gif">
