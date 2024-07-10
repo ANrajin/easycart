@@ -1,3 +1,7 @@
 ﻿.slick-track {
   display: flex !important;
 }
+
+.item-grid .text-center{
+    text-align:center !important;
+}

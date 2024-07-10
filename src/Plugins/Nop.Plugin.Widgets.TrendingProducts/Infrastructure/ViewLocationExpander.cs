@@ -40,21 +40,16 @@ public class ViewLocationExpander : IViewLocationExpander
     {
         context.Values.TryGetValue(THEME_KEY, out var theme);
 
-        viewLocations = new[] {
+        if (theme is null or "DefaultClean")
+            viewLocations = new[] {
                 $"/Plugins/Widgets.TrendingProducts/Views/{{1}}/{{0}}.cshtml",
                 $"/Plugins/Widgets.TrendingProducts/Views/Shared/{{0}}.cshtml",
             }.Concat(viewLocations);
-
-        //if (theme is null or "DefaultClean")
-        //    viewLocations = new[] {
-        //        $"/Plugins/Widgets.TrendingProducts/Views/{{1}}/{{0}}.cshtml",
-        //        $"/Plugins/Widgets.TrendingProducts/Views/Shared/{{0}}.cshtml",
-        //    }.Concat(viewLocations);
-        //else
-        //    viewLocations = new[] {
-        //        $"/Plugins/Widgets.TrendingProducts/Themes/{theme}/Views/{{1}}/{{0}}.cshtml",
-        //        $"/Plugins/Widgets.TrendingProducts/Themes/{theme}/Views/Shared/{{0}}.cshtml",
-        //    }.Concat(viewLocations);
+        else
+            viewLocations = new[] {
+                $"/Plugins/Widgets.TrendingProducts/Themes/{theme}/Views/{{1}}/{{0}}.cshtml",
+                $"/Plugins/Widgets.TrendingProducts/Themes/{theme}/Views/Shared/{{0}}.cshtml",
+            }.Concat(viewLocations);
 
         return viewLocations;
     }
