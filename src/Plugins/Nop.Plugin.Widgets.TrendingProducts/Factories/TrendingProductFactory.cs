@@ -1,4 +1,5 @@
 ﻿using Nop.Core.Domain.Catalog;
+using Nop.Plugin.Widgets.TrendingProducts.Models;
 using Nop.Web.Factories;
 using Nop.Web.Models.Catalog;
 
@@ -8,12 +9,26 @@ public sealed class TrendingProductFactory(IProductModelFactory productModelFact
 {
     private readonly IProductModelFactory _productModelFactory = productModelFactory;
 
-    public async Task<IEnumerable<ProductOverviewModel>> PrepareProductOverviewModelAsync(IEnumerable<Product> products)
+    public async Task<TrendingProductsPublicInfoModel> PreparePublicInfoModelAsync(
+        IEnumerable<Product> products, 
+        TrendingProductsSetting settings)
     {
         ArgumentException.ThrowIfNullOrEmpty(nameof(products));
 
-        var models = await _productModelFactory.PrepareProductOverviewModelsAsync(products, true);
+        var productOverviewModels = await _productModelFactory.PrepareProductOverviewModelsAsync(products, true);
 
-        return models;
+        var sliderSettings = new SliderSettingsModel
+        {
+            AutoPlay = settings.AutoPlay,
+            AutoPlaySpeed = settings.AutoPlaySpeed,
+            SlidesToShow = settings.SlidesToShow,
+            SlidesToScroll = settings.SlidesToScroll,
+        };
+
+        return new TrendingProductsPublicInfoModel
+        {
+            Products = productOverviewModels.ToList(),
+            SliderSettings = sliderSettings,
+        };
     }
 }

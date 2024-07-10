@@ -20,7 +20,7 @@ public class TrendingProductsViewComponent(
 
         var products = await _trendingProductService.GetTrendingProducts(setting, 1);
 
-        var model = await _trendingProductFactory.PrepareProductOverviewModelAsync(products);
+        var model = await _trendingProductFactory.PreparePublicInfoModelAsync(products, setting);
 
         return View(model);
     }

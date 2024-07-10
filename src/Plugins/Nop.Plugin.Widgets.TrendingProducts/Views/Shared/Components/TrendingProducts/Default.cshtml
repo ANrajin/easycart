@@ -1,6 +1,4 @@
-@using Nop.Web.Models.Catalog
-
-@model IList<ProductOverviewModel>
+@model Nop.Plugin.Widgets.TrendingProducts.Models.TrendingProductsPublicInfoModel
 
 @{
     Layout = "";
@@ -18,9 +16,9 @@
         <strong>Trending Products</strong>
     </div>
     <div class="item-grid trending-products">
-        @if(Model.Count > 0)
+        @if(Model.Products.Count > 0)
         {
-            @foreach (var item in Model)
+            @foreach (var item in Model.Products)
             {
                 <div class="item-box">
                     @await Html.PartialAsync("_ProductBox", item)
@@ -37,10 +35,10 @@
 <script asp-location="Footer">
     $(window).on('load', function () {
         $('.trending-products').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
+            slidesToShow: @Model.SliderSettings.SlidesToShow,
+            slidesToScroll: @Model.SliderSettings.SlidesToScroll,
+            autoplay: @Model.SliderSettings.AutoPlay.ToString().ToLower(),
+            autoplaySpeed: @Model.SliderSettings.AutoPlaySpeed,
       });
     });
 </script>

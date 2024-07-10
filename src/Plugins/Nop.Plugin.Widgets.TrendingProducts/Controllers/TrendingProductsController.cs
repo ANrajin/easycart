@@ -34,6 +34,10 @@ public class TrendingProductsController(
             FromDate = trendingProductsSettings.FromDate,
             ToDate = trendingProductsSettings.ToDate,
             Count = trendingProductsSettings.Count,
+            SlidesToShow = trendingProductsSettings.SlidesToShow,
+            SlidesToScroll = trendingProductsSettings.SlidesToScroll,
+            AutoPlay = trendingProductsSettings.AutoPlay,
+            AutoPlaySpeed = trendingProductsSettings.AutoPlaySpeed,
             ActiveStoreScopeConfiguration = storeScope
         };
 
@@ -43,18 +47,27 @@ public class TrendingProductsController(
     [HttpPost]
     public async Task<IActionResult> Configure(ConfigurationModel model)
     {
-        var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
-        var trendingProductsSettings = await _settingService.LoadSettingAsync<TrendingProductsSetting>();
+        if(ModelState.IsValid)
+        {
+            var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
+            var trendingProductsSettings = await _settingService.LoadSettingAsync<TrendingProductsSetting>();
 
-        trendingProductsSettings.FromDate = model.FromDate;
-        trendingProductsSettings.ToDate = model.ToDate;
-        trendingProductsSettings.Count = model.Count;
+            trendingProductsSettings.FromDate = model.FromDate;
+            trendingProductsSettings.ToDate = model.ToDate;
+            trendingProductsSettings.Count = model.Count;
+            trendingProductsSettings.AutoPlay = model.AutoPlay;
+            trendingProductsSettings.SlidesToScroll = model.SlidesToScroll;
+            trendingProductsSettings.SlidesToShow = model.SlidesToShow;
+            trendingProductsSettings.AutoPlaySpeed = model.AutoPlaySpeed;
 
-        await _settingService.SaveSettingAsync(trendingProductsSettings);
+            await _settingService.SaveSettingAsync(trendingProductsSettings, storeScope);
 
-        _notificationService.SuccessNotification(
-            await _localizationService.GetResourceAsync("Admin.Plugins.Saved"));
+            _notificationService.SuccessNotification(
+                await _localizationService.GetResourceAsync("Admin.Plugins.Saved"));
 
-        return await ConfigureAsync();
+            return RedirectToAction("Configure", "TrendingProducts");
+        }
+
+        return View(model);
     }
 }
