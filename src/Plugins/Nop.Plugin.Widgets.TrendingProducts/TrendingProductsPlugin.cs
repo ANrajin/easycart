@@ -4,6 +4,7 @@ using Nop.Plugin.Widgets.TrendingProducts.Components;
 using Nop.Services.Cms;
 using Nop.Services.Configuration;
 using Nop.Services.Plugins;
+using Nop.Services.Security;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Infrastructure;
 using Nop.Web.Framework.Menu;
@@ -13,12 +14,14 @@ namespace Nop.Plugin.Widgets.TrendingProducts
     public class TrendingProductsPlugin(
         ISettingService settingService,
         IStoreContext storeContext,
-        IWebHelper webHelper
+        IWebHelper webHelper,
+        IPermissionService permissionService
         ) : BasePlugin, IAdminMenuPlugin, IWidgetPlugin
     {
         private readonly ISettingService _settingService = settingService;
         private readonly IStoreContext _storeContext = storeContext;
         private readonly IWebHelper _webHelper = webHelper;
+        private readonly IPermissionService _permissionService = permissionService;
 
         public bool HideInWidgetList => false;
 
@@ -50,8 +53,11 @@ namespace Nop.Plugin.Widgets.TrendingProducts
             await base.UninstallAsync();
         }
 
-        public Task ManageSiteMapAsync(SiteMapNode rootNode)
+        public async Task ManageSiteMapAsync(SiteMapNode rootNode)
         {
+            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManagePlugins))
+                return;
+
             var menuItem = new SiteMapNode()
             {
                 SystemName = "TrendingProductsPlugin",
@@ -63,12 +69,11 @@ namespace Nop.Plugin.Widgets.TrendingProducts
                 RouteValues = new RouteValueDictionary() { { "area", AreaNames.ADMIN } },
             };
             var pluginNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "TrendingProductsPlugin");
+
             if (pluginNode != null)
                 pluginNode.ChildNodes.Add(menuItem);
             else
                 rootNode.ChildNodes.Insert(2, menuItem);
-
-            return Task.CompletedTask;
         }
     }
 }
