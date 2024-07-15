@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
+using Nop.Plugin.Widgets.TrendingProducts.Infrastructure.Securities;
 using Nop.Plugin.Widgets.TrendingProducts.Models;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Messages;
+using Nop.Services.Security;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc.Filters;
@@ -17,15 +19,20 @@ public class TrendingProductsController(
     IStoreContext storeContext,
     ISettingService settingService,
     INotificationService notificationService,
-    ILocalizationService localizationService) : BasePluginController
+    ILocalizationService localizationService,
+    IPermissionService permissionService) : BasePluginController
 {
     private readonly IStoreContext _storeContext = storeContext;
     private readonly ISettingService _settingService = settingService;
     private readonly INotificationService _notificationService = notificationService;
     private readonly ILocalizationService _localizationService = localizationService;
+    private readonly IPermissionService _permissionService = permissionService;
 
     public async Task<IActionResult> ConfigureAsync()
     {
+        if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageWidgets))
+            return AccessDeniedView();
+
         var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
         var trendingProductsSettings = await _settingService.LoadSettingAsync<TrendingProductsSetting>();
 
@@ -45,9 +52,12 @@ public class TrendingProductsController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> Configure(ConfigurationModel model)
+    public async Task<IActionResult> ConfigureAsync(ConfigurationModel model)
     {
-        if(ModelState.IsValid)
+        if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageWidgets))
+            return AccessDeniedView();
+
+        if (ModelState.IsValid)
         {
             var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
             var trendingProductsSettings = await _settingService.LoadSettingAsync<TrendingProductsSetting>();
@@ -69,5 +79,13 @@ public class TrendingProductsController(
         }
 
         return View(model);
+    }
+
+    public async Task<IActionResult> ListAsync()
+    {
+        if(!await _permissionService.AuthorizeAsync(TrendingProductsPermissionProvider.ViewTrendingProducts))
+            return AccessDeniedView();
+
+        return View();
     }
 }

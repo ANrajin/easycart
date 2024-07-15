@@ -47,6 +47,8 @@ public class ViewLocationExpander : IViewLocationExpander
             }.Concat(viewLocations);
         else
             viewLocations = new[] {
+                $"/Plugins/Widgets.TrendingProducts/Views/{{1}}/{{0}}.cshtml",
+                $"/Plugins/Widgets.TrendingProducts/Views/Shared/{{0}}.cshtml",
                 $"/Plugins/Widgets.TrendingProducts/Themes/{theme}/Views/{{1}}/{{0}}.cshtml",
                 $"/Plugins/Widgets.TrendingProducts/Themes/{theme}/Views/Shared/{{0}}.cshtml",
             }.Concat(viewLocations);
