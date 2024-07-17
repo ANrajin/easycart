@@ -8,7 +8,7 @@ public class BannerValidator : BaseNopValidator<BannerModel>
     public BannerValidator()
     {
         RuleFor(x => x.ImageUrl)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotNull()
             .NotEmpty();
     }
