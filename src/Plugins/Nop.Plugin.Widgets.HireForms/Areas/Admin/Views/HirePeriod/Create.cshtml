@@ -1,0 +1,30 @@
+@model HirePeriodModel
+@{
+    //page title
+    ViewBag.PageTitle = T("Plugins.Widgets.HireForms.HirePeriods.AddNew").Text;
+    //active menu item (system name)
+    NopHtml.SetActiveMenuItemSystemName("Widgets.HireForms.HirePeriods");
+}
+
+<form asp-controller="HirePeriod" asp-action="Create" method="post" id="category-form">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T("Plugins.Widgets.HireForms.HirePeriods.AddNew")
+            <small>
+                <i class="fas fa-arrow-circle-left"></i>
+                <a asp-action="List">@T("Plugins.Widgets.HireForms.HirePeriods.BackToList")</a>
+            </small>
+        </h1>
+        <div class="float-right">
+            <button type="submit" name="save" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T("Admin.Common.Save")
+            </button>
+            <button type="submit" name="save-continue" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T("Admin.Common.SaveContinue")
+            </button>
+        </div>
+    </div>
+    @await Html.PartialAsync("_CreateOrUpdate", Model)
+</form>

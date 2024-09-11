@@ -1,0 +1,144 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Copyright>Copyright © Nop Solutions, Ltd</Copyright>
+		<Company>Nop Solutions, Ltd</Company>
+		<Authors>Nop Solutions, Ltd</Authors>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl>https://www.nopcommerce.com/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/nopSolutions/nopCommerce</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<OutputPath>..\..\Presentation\Nop.Web\Plugins\Widgets.HireForms</OutputPath>
+		<OutDir>$(OutputPath)</OutDir>
+		<!--Set this parameter to true to get the dlls copied from the NuGet cache to the output of your project.
+    You need to set this parameter to true if your plugin has a nuget package 
+    to ensure that the dlls copied from the NuGet cache to the output of your project-->
+		<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Views\HireCall\**" />
+		<Compile Remove="Views\HireInformation\**" />
+		<EmbeddedResource Remove="Views\HireCall\**" />
+		<EmbeddedResource Remove="Views\HireInformation\**" />
+		<None Remove="Views\HireCall\**" />
+		<None Remove="Views\HireInformation\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Areas\Admin\Views\HirePeriod\_CreateOrUpdate.cshtml" />
+		<None Remove="Areas\Admin\Views\HirePeriod\_CreateOrUpdate.Info.cshtml" />
+		<None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
+		<None Remove="Areas\Admin\Views\_ViewStart.cshtml" />
+		<None Remove="logo.png" />
+		<None Remove="plugin.json" />
+		<None Remove="Views\Shared\Components\HireForm\Default.cshtml" />
+		<None Remove="Views\_ViewImports.cshtml" />
+		<None Remove="Themes\_ViewImports.cshtml" />
+		<None Remove="Views\Shared\Components\HireForm\Default.cshtml" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+		<ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj" />
+		<ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<Content Include="Areas\Admin\Views\HirePeriod\_CreateOrUpdate.Info.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Areas\Admin\Views\HirePeriod\_CreateOrUpdate.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+  
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\_ViewImports.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\HirePeriod\Create.cshtml">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+    <Content Include="Themes\Empoirum\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Shared\Components\HireForm\Default.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\HirePeriod\Edit.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\HirePeriod\List.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Areas\Admin\Views\_ViewImports.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Areas\Admin\Views\_ViewStart.cshtml">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="logo.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="plugin.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Areas\Admin\Views\HirePeriod\Create.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Shared\Components\HireForm\Default.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Areas\Admin\Views\HirePeriod\Edit.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Areas\Admin\Views\HirePeriod\List.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<Folder Include="Areas\Admin\Views\HireRequest\" />
+		<Folder Include="Components\" />
+		<Folder Include="Areas\Admin\Views\HirePeriod\" />
+		<Folder Include="Factories\" />
+		<Folder Include="Controllers\" />
+		<Folder Include="Themes\" />
+	</ItemGroup>
+
+	<!-- This target execute after "Build" target -->
+	<Target Name="NopTarget" AfterTargets="Build">
+		<!-- Delete unnecessary libraries from plugins path -->
+		<MSBuild Projects="@(ClearPluginAssemblies)" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
+	</Target>
+
+</Project>

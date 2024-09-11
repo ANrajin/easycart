@@ -1,0 +1,284 @@
+﻿@model HireFormModel
+@{
+    var datePickerFormat = Html.GetJQueryDateFormat();
+    NopHtml.AppendCssFileParts("~/Plugins/Widgets.HireForms/Contents/css/HireForm.css");
+}
+
+<input id="CurrentProductId" name="CurrentProductId" value="@Html.Raw(Model.CurrentProductId)" hidden />
+<input id="IsCustomerInfoHidden" value="true" hidden />
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        //var isDateValid = true;
+        function showHireForm() {
+            var productPricesBox = $(".call-for-price");
+            var hireFormWrapper = $("#hire-form-wrapper");
+
+            if (productPricesBox.length && hireFormWrapper.length) {
+                productPricesBox.empty();
+                productPricesBox.append(hireFormWrapper);
+                hireFormWrapper.show();
+            }
+        }
+        showHireForm();
+        $(".datepicker").datepicker({
+            dateFormat: "@datePickerFormat", // Set the desired date format
+            minDate: 0, // Restrict dates to today and later
+            onSelect: function (dateText, inst) {
+                //validation can be added here
+            }
+        });
+
+        function validateEmail(email) {
+            // Regular expression for email validation
+            var emailPattern = /^[a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return emailPattern.test(email);
+        }
+
+        function clearOnSuccess() {
+            $(".customer-info-wrapper").hide();
+            $(".hire-form-select-wrapper").hide();
+            $(".hire-form-select-wrapper").hide();
+            $("#HireFormTitle").hide();
+            $("#RequestHire").remove();
+            $(".add-to-cart-qty-wrapper").hide();
+            $(".hire-form-information-body").show();
+        }
+        function resetHireForm() {
+            // Reset select element to its initial state
+            $("#SelectedHirePeriodId").prop("selectedIndex", 0);
+            $("#StartDate").val('@(Model.StartDate.HasValue ? Model.StartDate.Value.ToShortDateString() : null)');
+            $("#EndDate").val('@(Model.EndDate.HasValue ? Model.EndDate.Value.ToShortDateString() : null)');
+            $(".datepicker").datepicker({
+                dateFormat: '@datePickerFormat',
+                minDate: 0,
+                onSelect: function (dateText, inst) {
+                    // validation can be added here
+                }
+            });
+
+            // Reset text input fields
+            $("#Name").val("");
+            $("#Email").val("");
+            $("#Phone").val("");
+
+            // Reset quantity input field
+            $("#hire-from-qty").val("1");
+        }
+        function UpdateHireFormResponse(response) {
+
+            if (response.Success === true) {
+                $("#HireFormSubmittedNotification").text(response.ResponseMessage);
+                $("#HireFormSubmittedNotification").css('color', 'green');
+                resetHireForm();
+                clearOnSuccess();
+
+                //success
+                if (AjaxCart.usepopupnotifications === true) {
+                    displayPopupNotification(response.ResponseMessage, 'success', true);
+                }
+                else {
+                    //specify timeout for success messages
+                    displayBarNotification(response.ResponseMessage, 'success', 3500);
+                }
+            }
+            else {
+                //error
+                if (AjaxCart.usepopupnotifications === true) {
+                    displayPopupNotification(response.ResponseMessage, 'error', true);
+                }
+                else {
+                    //no timeout for errors
+                    displayBarNotification(response.ResponseMessage, 'error', 0);
+                }
+            }
+            return false;
+        }
+
+        $("#RequestHire").click(function (e) {
+            e.preventDefault();
+            var customerInfoWrapper = $(".customer-info-wrapper");
+            var hireFormSelectWrapper = $(".hire-form-select-wrapper");
+            var hireFormInformation = $(".hire-form-information-body");
+            var addToCartQtyWrapper = $(".add-to-cart-qty-wrapper");
+            var isValid = true;
+            //isDateValid = true; // Reset the flag
+            $("#start-date-validation-message").text("");
+            $("#end-date-validation-message").text("");
+            $("#hire-period-validation-message").text("");
+            $("#hire-from-name-fields-validation-message").text("");
+            $("#hire-from-email-fields-validation-message").text("");
+            $("#hire-from-phone-fields-validation-message").text("");
+            $("#quantity-validation-message").text("");
+            var isCustomerInfoHidden = $("#IsCustomerInfoHidden");
+            if (isCustomerInfoHidden.val() === 'true') {
+                // Show the customer info wrapper if not visible
+                customerInfoWrapper.show();
+                hireFormSelectWrapper.show();
+                addToCartQtyWrapper.show();
+                hireFormInformation.hide();
+                isCustomerInfoHidden.val('false');
+                return false;
+            }
+            else {
+                // Validate the customer info
+                var selectedHirePeriodId = $("#SelectedHirePeriodId").val();
+                var nameInput = $("#Name");
+                var emailInput = $("#Email");
+                var phoneInput = $("#Phone");
+                var quantityInput = $("#hire-from-qty");
+
+                if (selectedHirePeriodId === "0") {
+                    isValid = false;
+                    // Display a message for hire period validation
+                    $("#hire-period-validation-message").text('@T("Plugins.Widgets.HireForms.HirePeriods.Validation.HirePeriod").Text');
+                    $("#hire-period-validation-message").css('color', 'red');
+                }
+                //validateDateRange();
+                if (!nameInput.val()) {
+                    isValid = false;
+                    // Display a message for required fields
+                    $("#hire-from-name-fields-validation-message").text('@T("Plugins.Widgets.HireForms.HirePeriods.Validation.Name").Text');
+                    $("#hire-from-name-fields-validation-message").css('color', 'red');
+                }
+                var emailValue = emailInput.val();
+                if (!emailValue || !validateEmail(emailValue)) {
+                    isValid = false;
+                    // Display a message for invalid email
+                    $("#hire-from-email-fields-validation-message").text('@T("Plugins.Widgets.HireForms.HirePeriods.Validation.Email").Text');
+                    $("#hire-from-email-fields-validation-message").css('color', 'red');
+                }
+                if (!phoneInput.val()) {
+                    isValid = false;
+                    // Display a message for required fields
+                    $("#hire-from-phone-fields-validation-message").text('@T("Plugins.Widgets.HireForms.HirePeriods.Validation.Phone").Text');
+                    $("#hire-from-phone-fields-validation-message").css('color', 'red');
+                }
+                var quantityValue = parseInt(quantityInput.val());
+                if (isNaN(quantityValue) || quantityValue < 1) {
+                    isValid = false;
+                    // Display a message for quantity validation
+                    $("#quantity-validation-message").text('@T("Plugins.Widgets.HireForms.HirePeriods.Validation.Quantity").Text');
+                    $("#quantity-validation-message").css('color', 'red');
+                    $("#quantity-validation-message").css('display', 'block');
+                }
+                if (isValid) {
+                    // Proceed with further actions (submit form, etc.)
+                    // Select the existing hidden input element
+                    var currentProductIdInput = $('#CurrentProductId');
+                    // Append the selected input element to the form
+                    $('#product-details-form').append(currentProductIdInput);
+
+                    $.ajax({
+                        cache: false,
+                        url: "@Html.Raw(Url.Action("HireForm_Details", "HireForm"))",
+                        data: $('#product-details-form').serialize(),
+                        type: "POST",
+                        success: UpdateHireFormResponse
+                    });
+                }
+
+            }
+        });
+    });
+</script>
+
+
+<div class="hire-form-wrapper" id="hire-form-wrapper" style="display:none">
+    <div class="title" id="HireFormTitle">@T("Plugins.Widgets.HireForms.AvailableForHire")</div>
+
+    <div id="HireFormSubmittedNotification"></div>
+    <div class="hire-form-select-wrapper" style="display:none">
+        <div class="hire-form-customer-input">
+            <select asp-for="SelectedHirePeriodId" name="HireForm_SelectedHirePeriodId" asp-items="@Model.AvailableHirePreriods">
+            </select>
+            <div id="hire-period-validation-message" class="validation-message"></div>
+        </div>
+        <div class="date-wrapper">
+            <div class="hire-form-customer-input">
+                <label class="hireForm_labels">@T("Plugins.Widgets.HireForms.HirePeriods.Form.SelectStartDate").Text</label>
+                <div class="time-wrap">
+                    <input id="StartDate" name="HireForm_StartDate" type="text" class="datepicker" value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToShortDateString() : null)" />
+                </div>
+                <div id="start-date-validation-message" class="validation-message"></div>
+                <script asp-location="Footer">
+                    $(document).ready(function () {
+                        $("#StartDate").datepicker({ dateFormat: "@datePickerFormat" });
+                    });
+                </script>
+            </div>
+            <div class="hire-form-customer-input">
+                <label class="hireForm_labels">@T("Plugins.Widgets.HireForms.HirePeriods.Form.SelectEndDate").Text</label>
+                <div class="time-wrap">
+                    <input id="EndDate" name="HireForm_EndDate" type="text" class="datepicker" value="@(Model.EndDate.HasValue ? Model.EndDate.Value.ToShortDateString() : null)" />
+                </div>
+                <div id="end-date-validation-message" class="validation-message"></div>
+                <script asp-location="Footer">
+                    $(document).ready(function () {
+                        $("#EndDate").datepicker({ dateFormat: "@datePickerFormat" });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="customer-info-wrapper" style="display:none">
+        <div class="hire-form-customer-input-info">
+            <label class="hireForm_labels">@T("Plugins.Widgets.HireForms.HirePeriods.Form.HireFormName").Text</label>
+            <input id="Name" name="HireForm_Name" type="text" class="input-Name" />
+            <div id="hire-from-name-fields-validation-message" class="validation-message"></div>
+        </div>
+
+
+        <div class="hire-form-customer-input-info">
+            <label class="hireForm_labels">@T("Plugins.Widgets.HireForms.HirePeriods.Form.HireFormEmail").Text</label>
+            <input id="Email" name="HireForm_Email" type="text" class="input-Email" />
+            <div id="hire-from-email-fields-validation-message" class="validation-message"></div>
+        </div>
+
+
+        <div class="hire-form-customer-input-info">
+            <label class="hireForm_labels">@T("Plugins.Widgets.HireForms.HirePeriods.Form.HireFormPhone").Text</label>
+            <input id="Phone" name="HireForm_Phone" type="text" class="input-Phone" />
+            <div id="hire-from-phone-fields-validation-message" class="validation-message"></div>
+        </div>
+
+    </div>
+
+
+
+    <div class="hire-form-information">
+        <div class="button-qty-wrap">
+            <div class="add-to-cart-qty-wrapper" style="display:none">
+                <input id="hire-from-qty" class="qty-input valid" type="text" aria-label="@T("Plugins.Widgets.HireForms.HirePeriods.Form.EnterQuantity").Text"
+                       data-val="true" data-val-required="@T("Plugins.Widgets.HireForms.HirePeriods.Form.Validation.Quantity").Text"
+                       name="HireForm_HireFormQuantity" value="1"
+                       aria-describedby="hire-from-qty-errors" aria-invalid="false">
+                <div class="icon-wrap">
+                    <span class="hire-form-plus" onclick="changeHireFormQuantity('hire-from-qty', 1)"></span>
+                    <span class="hire-form-minus" onclick="changeHireFormQuantity('hire-from-qty', -1)"></span>
+                </div>
+
+            </div>
+            <button id="RequestHire" type="button" class="button-1 request-hire">@T("Plugins.Widgets.HireForms.PublicButton.RequestHire").Text</button>
+            <div id="quantity-validation-message" style="display:none" class="validation-message"></div>
+        </div>
+        <div class="hire-form-information-body">
+            @Html.Raw(Model.InfoBody)
+        </div>
+    </div>
+
+    <script>
+        function changeHireFormQuantity(inputId, change) {
+            var input = document.getElementById(inputId);
+            var currentValue = parseInt(input.value);
+
+            if (!isNaN(currentValue)) {
+                var newValue = currentValue + change;
+                if (newValue >= 1) {
+                    input.value = newValue;
+                }
+            }
+        }
+    </script>
+
+</div>

@@ -1,0 +1,207 @@
+@model HireRequestSearchModel
+@inject IGenericAttributeService genericAttributeService
+@inject IWorkContext workContext
+@{
+    Layout = "_AdminLayout";
+    var customer = await workContext.GetCurrentCustomerAsync();
+    const string hideSearchBlockAttributeName = "HireForms.HideRequestAdminSearchBlock";
+    var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideSearchBlockAttributeName);
+    NopHtml.SetActiveMenuItemSystemName("Widgets.HireForms.HireRequests");
+    //page title
+    ViewBag.PageTitle = T("Plugins.Widgets.HireForms.HireRequests").Text;
+    
+}
+<form asp-controller="HireRequest" asp-action="List" method="post">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T("Plugins.Widgets.HireForms.HireRequests")
+        </h1>
+        <div class="float-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success">
+                    <i class="fas fa-download"></i>
+                    @T("Admin.Common.Export")
+                </button>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                    <span class="sr-only">&nbsp;</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-item">
+                        <button asp-action="ExportXml" type="submit" name="exportxml-all">
+                            <i class="far fa-file-code"></i>
+                            @T("Admin.Common.ExportToXml.All")
+                        </button>
+                    </li>
+                    <li class="dropdown-item">
+                        <button type="button" id="exportxml-selected">
+                            <i class="far fa-file-code"></i>
+                            @T("Admin.Common.ExportToXml.Selected")
+                        </button>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-item">
+                        <button asp-action="ExportExcel" type="submit" name="exportexcel-all">
+                        <i class="far fa-file-excel"></i>
+                        @T("Admin.Common.ExportToExcel.All")
+                        </button>
+                    </li>
+                    <li class="dropdown-item">
+                        <button type="button" id="exportexcel-selected">
+                            <i class="far fa-file-excel"></i>
+                            @T("Admin.Common.ExportToExcel.Selected")
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" id="delete-selected" class="btn btn-danger">
+                <i class="far fa-trash-alt"></i>
+                @T("Admin.Common.Delete.Selected")
+            </button>
+            <nop-action-confirmation asp-button-id="delete-selected" />
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                <div class="cards-group">
+                    <div class="card card-default card-search">
+                        <div class="card-body">
+                            <div class="row search-row @(!hideSearchBlock ? "opened" : "")" data-hideAttribute="@hideSearchBlockAttributeName">
+                                <div class="search-text">@T("Admin.Common.Search")</div>
+                                <div class="icon-search"><i class="fas fa-search" aria-hidden="true"></i></div>
+                                <div class="icon-collapse"><i class="far fa-angle-@(!hideSearchBlock ? "up" : "down")" aria-hidden="true"></i></div>
+                            </div>
+
+                            <div class="search-body @(hideSearchBlock ? "closed" : "")">
+
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <nop-label asp-for="CustomerNameOrEmail" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-editor asp-for="CustomerNameOrEmail" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <nop-label asp-for="HirePeriodId" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-select asp-for="HirePeriodId" asp-items="Model.AvailableHirePeriods" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="text-center col-12">
+                                        <button type="button" id="search-hire-requests" class="btn btn-primary btn-search"><i class="fas fa-search"></i>@T("Admin.Common.Search")</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-default">
+                        <div class="card-body">
+
+                            @await Html.PartialAsync("Table", new DataTablesModel
+                            {
+                                Name = "hire-request-grid",
+                                UrlRead = new DataUrl("HireRequests", "HireRequest", null),
+                                SearchButtonId = "search-hire-requests",
+                                Length = Model.PageSize,
+                                LengthMenu = Model.AvailablePageSizes,
+                                Filters = new List<FilterParameter>
+                                {
+                                    new FilterParameter(nameof(Model.CustomerNameOrEmail)),
+                                    new FilterParameter(nameof(Model.HirePeriodId))
+                                },
+                                ColumnCollection = new List<ColumnProperty>
+                                {
+                                    new ColumnProperty(nameof(HireRequestModel.Id))
+                                    {
+                                        IsMasterCheckBox = true,
+                                        Render = new RenderCheckBox("checkbox_HireRequests"),
+                                        ClassName =  NopColumnClassDefaults.CenterAll,
+                                        Width = "50"
+                                    },
+                                    new ColumnProperty(nameof(HireRequestModel.Name))
+                                    {
+                                        Title = T("Plugins.Widgets.HireForms.Table.HireRequest.Name").Text,
+                                        Width = "150",
+                                    },
+                                    new ColumnProperty(nameof(HireRequestModel.Email))
+                                    {
+                                        Title = T("Plugins.Widgets.HireForms.Table.HireRequest.Email").Text,
+                                        Width = "100",
+                                    },
+                                    new ColumnProperty(nameof(HireRequestModel.Phone))
+                                    {
+                                        Title = T("Plugins.Widgets.HireForms.Table.HireRequest.Phone").Text,
+                                        Width = "80",
+                                    },
+                                    new ColumnProperty(nameof(HireRequestModel.CreatedOn))
+                                    {
+                                        Title = T("Plugins.Widgets.HireForms.Table.HireRequest.CreatedOn").Text,
+                                        Width = "100",
+                                        Render = new RenderDate()
+                                    },
+                                    new ColumnProperty(nameof(HireRequestModel.StartDate))
+                                    {
+                                        Title = T("Plugins.Widgets.HireForms.Table.HireRequest.StartDate").Text,
+                                        Width = "100",
+                                        Render = new RenderDate()
+                                    },
+                                    new ColumnProperty(nameof(HireRequestModel.EndDate))
+                                    {
+                                        Title = T("Plugins.Widgets.HireForms.Table.HireRequest.EndDate").Text,
+                                        Width = "100",
+                                        Render = new RenderDate()
+                                    },
+                                    new ColumnProperty(nameof(HireRequestModel.Id))
+                                    {
+                                        Title = T("Admin.Common.Edit").Text,
+                                        Width = "100",
+                                        ClassName = NopColumnClassDefaults.Button,
+                                        Render = new RenderButtonEdit(new DataUrl("Edit"))
+                                    }
+                                }
+                            })
+
+                            <script>
+                                $(document).ready(function () {
+                                    $('#delete-selected-action-confirmation-submit-button').bind('click', function () {
+                                        var postData = {
+                                            selectedIds: selectedIds
+                                        };
+                                        addAntiForgeryToken(postData);
+                                        $.ajax({
+                                            cache: false,
+                                            type: "POST",
+                                            url: "@(Url.Action("DeleteSelectedHireRequests", "HireRequest"))",
+                                            data: postData,
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                showAlert('deleteSelectedFailed', errorThrown);
+                                            },
+                                            complete: function (jqXHR, textStatus) {
+                                                if (jqXHR.status === 204) {
+                                                    showAlert('nothingSelectedAlert', '@T("Admin.Common.Alert.NothingSelected")');
+                                                    return;
+                                                }
+                                                updateTable('#hire-request-grid');
+                                            }
+                                        });
+                                        $('#delete-selected-action-confirmation').modal('toggle');
+                                        return false;
+                                    });
+                                });
+                            </script>
+                            <nop-alert asp-alert-id="deleteSelectedFailed" />
+                            <nop-alert asp-alert-id="nothingSelectedAlert" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+    

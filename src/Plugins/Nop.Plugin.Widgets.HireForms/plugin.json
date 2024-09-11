@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Hire Forms",
+  "SystemName": "Widgets.HireForms",
+  "Version": "1.5",
+  "SupportedVersions": [ "4.70" ],
+  "Author": "team nopStation",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.HireForms.dll",
+  "Description": "This plugin allows you to get product hire requests from customers"
+}

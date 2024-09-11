@@ -1,0 +1,71 @@
+@model HireRequestModel
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-label asp-for="HirePeriodName" />
+        </div>
+        <div class="col-md-9">
+            <div class="form-text-row">@Model.HirePeriodName</div>
+        </div>
+
+        <div class="col-md-3">
+            <nop-label asp-for="CreatedOn" />
+        </div>
+        <div class="col-md-9">
+            <div class="form-text-row">@Model.CreatedOn</div>
+        </div>
+
+
+        <div class="col-md-3">
+            <nop-label asp-for="Name" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div class="col-md-3">
+            <nop-label asp-for="Email" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+
+        <div class="col-md-3">
+            <nop-label asp-for="Phone" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Phone" />
+            <span asp-validation-for="Phone"></span>
+        </div>
+
+        <div class="col-md-3">
+            <nop-label asp-for="Quantity" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Quantity" />
+            <span asp-validation-for="Quantity"></span>
+        </div>
+
+        <div class="col-md-3">
+            <nop-label asp-for="StartDate" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="StartDate" />
+            <span asp-validation-for="StartDate"></span>
+        </div>
+
+        <div class="col-md-3">
+            <nop-label asp-for="EndDate" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="EndDate" />
+            <span asp-validation-for="EndDate"></span>
+        </div>
+
+        
+
+    </div>
+</div>

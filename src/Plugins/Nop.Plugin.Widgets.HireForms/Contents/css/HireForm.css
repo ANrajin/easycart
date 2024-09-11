@@ -1,0 +1,232 @@
+.hire-form-wrapper .validation-message,
+.hire-form-wrapper input:not(.qty-input),
+.hire-form-wrapper select {
+    margin-bottom: 7px;
+}
+
+.hire-form-wrapper .validation-message {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.ui-state-disabled span {
+    opacity: .5;
+}
+
+.ui-datepicker-calendar td a {
+    color: black;
+    font-weight: bold;
+}
+
+#quantity-validation-message {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.call-for-price > div.hire-form-wrapper:first-child {
+    padding: 0;
+    border: 1px solid #a1c5e0;
+    border-radius: 0px;
+}
+
+.customer-info-wrapper,
+.hire-form-select-wrapper {
+    padding: 0px 10px;
+}
+
+.hire-form-information {
+    margin: 10px 0px;
+}
+
+.hire-form-information-header {
+    background: #345777;
+    padding: 15px 10px;
+    text-align: left;
+    line-height: 1.5;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.hire-form-information-body {
+    padding: 0px 10px 10px;
+    text-align: left;
+}
+
+.hire-form-wrapper .title {
+    font-size: 18px;
+    font-weight: 900;
+    color: #ea7224;
+    text-align: center;
+    padding: 0px 10px;
+    margin: 15px 0px;
+}
+
+.hire-form-wrapper .button-qty-wrap {
+    margin: 10px 0px;
+}
+
+.hire-form-wrapper .request-hire {
+    border-radius: 5px;
+    background: #ea7224;
+    margin-left: 10px;
+    padding: 10px 15px;
+    border: 0;
+    color: white;
+}
+
+.hire-form-customer-input label {
+    display: block;
+    color: #345777;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.hire-form-customer-input input,
+.hire-form-customer-input select {
+    width: 100%;
+    border: 1px solid #e7e7e7;
+    color: #345777;
+    height: 35px;
+}
+
+.hire-form-customer-input input {
+    padding: 0px 10px;
+}
+
+.hire-form-wrapper .date-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .hire-form-wrapper .date-wrapper .hire-form-customer-input {
+        width: 49%;
+    }
+
+        .hire-form-wrapper .date-wrapper .hire-form-customer-input input {
+            cursor: pointer !important;
+        }
+
+.customer-info-wrapper label {
+    display: block;
+}
+
+.customer-info-wrapper input {
+    display: block;
+}
+
+.hire-form-wrapper .add-to-cart-qty-wrapper {
+    width: 80px;
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid #345777;
+    position: relative;
+}
+
+.hire-form-wrapper .icon-wrap {
+    position: absolute;
+    border-left: 1px solid #345777;
+    width: 22px;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+
+    .hire-form-wrapper .icon-wrap .hire-form-plus {
+        cursor: pointer;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 7px solid #345777;
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hire-form-wrapper .icon-wrap .hire-form-minus {
+        cursor: pointer;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 7px solid #345777;
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+.hire-form-wrapper .button-qty-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 10px;
+}
+
+    .hire-form-wrapper .button-qty-wrap .qty-input {
+        height: 35px;
+        border: 0;
+        outline:none;
+    }
+
+.hire-form-wrapper .time-wrap {
+    position: relative;
+}
+
+    .hire-form-wrapper .time-wrap input {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='17' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.949 5v10.026a.986.986 0 01-.997.974H.997A.986.986 0 010 15.026V5h15.949zM4.192 11.417H2.375l-.09.008a.5.5 0 00-.378.317l-.023.085-.008.09v1.75l.008.09a.5.5 0 00.317.378l.084.024.09.008h1.817l.09-.008a.5.5 0 00.378-.318l.023-.085.008-.09v-1.75l-.008-.09a.5.5 0 00-.317-.378l-.084-.023-.09-.008zm4.691 0H7.066l-.09.008a.5.5 0 00-.378.317l-.023.085-.008.09v1.75l.008.09a.5.5 0 00.317.378l.084.024.09.008h1.817l.09-.008a.5.5 0 00.378-.318l.023-.085.008-.09v-1.75l-.008-.09a.5.5 0 00-.317-.378l-.084-.023-.09-.008zm-4.69-4.584H2.374l-.09.008a.5.5 0 00-.378.318l-.023.085-.008.09v1.75l.008.09a.5.5 0 00.317.378l.084.023.09.008h1.817l.09-.008a.5.5 0 00.378-.317l.023-.085.008-.09v-1.75l-.008-.09a.5.5 0 00-.317-.378l-.084-.024-.09-.008zm4.69 0H7.066l-.09.008a.5.5 0 00-.378.318l-.023.085-.008.09v1.75l.008.09a.5.5 0 00.317.378l.084.023.09.008h1.817l.09-.008a.5.5 0 00.378-.317l.023-.085.008-.09v-1.75l-.008-.09a.5.5 0 00-.317-.378l-.084-.024-.09-.008zm4.691 0h-1.818l-.09.008a.5.5 0 00-.377.318l-.023.085-.008.09v1.75l.008.09a.5.5 0 00.317.378l.084.023.09.008h1.817l.09-.008a.5.5 0 00.377-.317l.024-.085.008-.09v-1.75l-.008-.09a.5.5 0 00-.317-.378l-.084-.024-.09-.008zM13.054 1.125h1.994c.55 0 .997.476.997 1.063V4H.095V2.187c0-.586.447-1.062.998-1.062h1.993v-.063C3.086.477 3.532 0 4.083 0s.997.476.997 1.063v.062h5.98v-.063c0-.586.447-1.062.998-1.062.55 0 .996.476.996 1.063v.062z' fill='%23C3CAD8'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position-x: 96%;
+        background-position-y: center;
+    }
+
+.hire-form-wrapper .title,
+.hire-form-wrapper .button-1 {
+    text-transform: capitalize;
+}
+
+.overview .prices > div, .variant-overview .prices > div {
+    margin-right: 0px;
+}
+
+.hire-form-customer-input-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.hire-form-customer-input-info .hireForm_labels {
+    display: block;
+    color: #345777;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+    width: 60px;
+}
+
+@media (min-width: 1281px){
+    .overview .prices {
+        margin: 0px 0px;
+    }
+}
+@media(max-width: 1600px) {
+    .hire-form-customer-input-info input {
+        width: 100%;
+    }
+
+    .hire-form-customer-input-info {
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+    }
+
+        .hire-form-customer-input-info .hireForm_labels {
+            width: auto;
+        }
+}
