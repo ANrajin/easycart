@@ -1,0 +1,11 @@
+{
+  "Group": "Misc",
+  "FriendlyName": "Google Shooping Feed Plugin",
+  "SystemName": "Misc.GoogleShoppingFeed",
+  "Version": "1.0.0",
+  "SupportedVersions": [ "4.70" ],
+  "Author": "Nop Station",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Misc.GoogleShoppingFeed.dll",
+  "Description": "A plugin to update your products into google merchant center"
+}
