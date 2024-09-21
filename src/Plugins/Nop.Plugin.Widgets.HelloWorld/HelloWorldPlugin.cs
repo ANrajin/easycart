@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using Nop.Core;
+using Nop.Core.Domain.ScheduleTasks;
 using Nop.Plugin.Widgets.HelloWorld.Components;
 using Nop.Services.Cms;
 using Nop.Services.Plugins;
+using Nop.Services.ScheduleTasks;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Infrastructure;
 using Nop.Web.Framework.Menu;
@@ -12,10 +14,13 @@ namespace Nop.Plugin.Widgets.HelloWorld;
 public class HelloWorldPlugin : BasePlugin, IWidgetPlugin, IAdminMenuPlugin
 {
     private readonly IWebHelper _webHelper;
+    private readonly IScheduleTaskService _scheduleTaskService;
 
-    public HelloWorldPlugin(IWebHelper webHelper)
+    public HelloWorldPlugin(IWebHelper webHelper, 
+        IScheduleTaskService scheduleTaskService)
     {
         _webHelper = webHelper;
+        _scheduleTaskService = scheduleTaskService;
     }
 
     public bool HideInWidgetList => false;
@@ -37,6 +42,7 @@ public class HelloWorldPlugin : BasePlugin, IWidgetPlugin, IAdminMenuPlugin
 
     public override async Task InstallAsync()
     {
+        await InsertSimpleScheduleTaskAsync();
         await base.InstallAsync();
     }
 
@@ -64,5 +70,22 @@ public class HelloWorldPlugin : BasePlugin, IWidgetPlugin, IAdminMenuPlugin
     public override async Task UninstallAsync()
     {
         await base.UninstallAsync();
+    }
+
+    public override Task UpdateAsync(string currentVersion, string targetVersion)
+    {
+        return base.UpdateAsync(currentVersion, targetVersion);
+    }
+
+    public async Task InsertSimpleScheduleTaskAsync()
+    {
+        await _scheduleTaskService.InsertTaskAsync(new ScheduleTask
+        {
+            Name = "Simple Schedule Task - Testing",
+            Seconds = 300,
+            Type = "Nop.Plugin.Widgets.HelloWorld.ScheduleTasks.SimpleScheduleTask",
+            Enabled = true,
+            StopOnError = false,
+        });
     }
 }
